@@ -1,6 +1,6 @@
 package com.example.bee.model.request.QuenMatKhauRequest;
 
-import com.example.poly.datn.common.CommonEnum;
+import com.example.bee.common.CommonEnum;
 import lombok.Getter;
 import lombok.Setter;
 
