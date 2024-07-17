@@ -1,10 +1,10 @@
 package com.example.bee.service.impl;
 
-import com.example.poly.datn.entity.TaiKhoan;
-import com.example.poly.datn.model.request.QuenMatKhauRequest.QuenMatKhauRequest;
-import com.example.poly.datn.repository.TaiKhoanRepository;
-import com.example.poly.datn.service.QuenMatKhauService;
-import com.example.poly.datn.utils.EmailSend;
+import com.example.bee.repository.TaiKhoanRepository;
+import com.example.bee.service.QuenMatKhauService;
+import com.example.bee.entity.TaiKhoan;
+import com.example.bee.model.request.QuenMatKhauRequest.QuenMatKhauRequest;
+import com.example.bee.utils.EmailSend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
