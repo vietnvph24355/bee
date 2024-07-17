@@ -1,6 +1,6 @@
 package com.example.bee.entity;
 
-import com.example.poly.datn.common.CommonEnum;
+import com.example.bee.common.CommonEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
