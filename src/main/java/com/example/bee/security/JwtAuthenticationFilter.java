@@ -23,6 +23,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private TaiKhoanInfoDetailsServices userServices;
 
+    public JwtAuthenticationFilter(JWTService jwtService, TaiKhoanInfoDetailsServices userServices) {
+        this.jwtService = jwtService;
+        this.userServices = userServices;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
