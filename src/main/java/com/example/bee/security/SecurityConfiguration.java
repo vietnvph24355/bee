@@ -56,9 +56,10 @@ public class SecurityConfiguration {
                         .requestMatchers(new AntPathRequestMatcher("/api/dia-chi/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/api/voucher-chi-tiet/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/api/voucher/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/admin/api/**")).hasAnyAuthority("MANAGER","EMPLOYEE")
+                        .requestMatchers(new AntPathRequestMatcher("/api/**", "/api/sign-up")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/admin/api/**")).hasAnyAuthority("ADMIN","STAFF")
 //                        .requestMatchers(new AntPathRequestMatcher("/admin/api/hoa-don/**")).hasAnyAuthority("EMPLOYEE")
-                        .requestMatchers(new AntPathRequestMatcher("/api/**", "/client/api/don-hang/**")).hasAnyAuthority("CUSTOMER")
+                        .requestMatchers(new AntPathRequestMatcher("/api/**", "/client/api/don-hang/**")).hasAnyAuthority("CLIENT")
 
                         .anyRequest().authenticated())
 
@@ -86,4 +87,8 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)throws Exception{
         return config.getAuthenticationManager();
     }
+//    private OidcUserService oidcUserService() {
+//        return new OidcUserService();
+//    }
+
 }

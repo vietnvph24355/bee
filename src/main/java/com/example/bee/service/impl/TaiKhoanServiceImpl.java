@@ -155,7 +155,7 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         }
 
         TaiKhoan canCuocCongDan = taiKhoanRepository.findByCanCuocCongDan(request.getCanCuocCongDan());
-        TaiKhoan email = taiKhoanRepository.findByEmail(request.getEmail());
+        TaiKhoan email = taiKhoanRepository.findByEmail1(request.getEmail());
 
         if (canCuocCongDan != null && !request.getCanCuocCongDan().equals(canCuocCongDan.getCanCuocCongDan())) {
             if (taiKhoanRepository.existsByCanCuocCongDan(request.getCanCuocCongDan())) {
@@ -181,7 +181,7 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         if (optional.isEmpty()) {
             throw new NotFoundException("Tài khoản không tồn tại");
         }
-        TaiKhoan email = taiKhoanRepository.findByEmail(request.getEmail());
+        TaiKhoan email = taiKhoanRepository.findByEmail1(request.getEmail());
 
         if (email != null && !request.getEmail().equals(email.getEmail())) {
             if (taiKhoanRepository.existsByEmail(request.getEmail())) {

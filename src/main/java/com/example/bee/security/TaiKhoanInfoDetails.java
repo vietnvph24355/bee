@@ -11,17 +11,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaiKhoanInfoDetails implements UserDetails {
-    private String sdt;
-    private String matKhau;
-    private List<GrantedAuthority> authorities;
+    private String gmail;
+    private String password;
+    List<GrantedAuthority> authorities;
 
-    public TaiKhoanInfoDetails(TaiKhoan user) {
-        this.sdt = user.getEmail();
-        this.matKhau = user.getMatKhau();
-        this.authorities = Arrays.stream(user.getVaiTro().getTen().split(","))
+    public TaiKhoanInfoDetails(TaiKhoan taiKhoan){
+        this.gmail = taiKhoan.getEmail();
+        this.password = taiKhoan.getMatKhau();
+        this.authorities = Arrays.stream(taiKhoan.getVaiTro().getTen().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,12 +31,12 @@ public class TaiKhoanInfoDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return matKhau;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return sdt;
+        return gmail;
     }
 
     @Override

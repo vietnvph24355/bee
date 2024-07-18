@@ -9,6 +9,6 @@ public class SigninRequest {
 
     private String email;
 
-    private String matKhau;
+    private String password;
 
 }
