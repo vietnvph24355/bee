@@ -87,4 +87,8 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)throws Exception{
         return config.getAuthenticationManager();
     }
+//    private OidcUserService oidcUserService() {
+//        return new OidcUserService();
+//    }
+
 }

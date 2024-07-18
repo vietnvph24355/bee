@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class SigninRequest {
 
-    private String gmail;
+    private String email;
 
     private String password;
 

@@ -115,16 +115,16 @@ public class AuthenticationServiceIplm implements AuthenticationService {
     @Override
     public JwtAuthenticationResponse signin(SigninRequest signinRequest) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getGmail(),
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(),
                     signinRequest.getPassword()));
         } catch (AuthenticationException e) {
             // Invalid credentials
             throw new BadRequestException("Tài khoản hoặc mật khẩu không tồn tại.");
         }
 
-        TaiKhoan taiKhoan = userRepository.findGmail1(signinRequest.getGmail());
+        TaiKhoan taiKhoan = userRepository.findGmail1(signinRequest.getEmail());
 //        GioHang gioHang = gioHangRepository.getOne(taiKhoan.getId());
-        var userToke = service.loadUserByUsername(signinRequest.getGmail());
+        var userToke = service.loadUserByUsername(signinRequest.getEmail());
         var jwt = jwtService.generateToken(userToke);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), userToke);
 

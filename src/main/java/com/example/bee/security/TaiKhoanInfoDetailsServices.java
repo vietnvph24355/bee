@@ -19,7 +19,7 @@ public class TaiKhoanInfoDetailsServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String gmail) throws UsernameNotFoundException {
-        Optional<TaiKhoan> optional = taiKhoanRepository.findGmail(gmail);
+        Optional<TaiKhoan> optional = taiKhoanRepository.findByEmail(gmail);
         return optional.map(TaiKhoanInfoDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("gmail not found"));
     }

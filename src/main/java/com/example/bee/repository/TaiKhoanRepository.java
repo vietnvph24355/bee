@@ -61,7 +61,7 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, Long> {
     boolean existsByEmail(String email);
 
     //
-    TaiKhoan findByEmail(String email);
+    //TaiKhoan findByEmail(String email);
 
     TaiKhoan findTaiKhoanByEmail(String email);
 
@@ -69,14 +69,14 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, Long> {
     TaiKhoan findTaiKhoanByMatKhau(String matKhau);
 
     //
-    @Query("SELECT tk FROM TaiKhoan tk WHERE tk.email =:gmail")
-    Optional<TaiKhoan> findGmail(String gmail);
+    @Query("SELECT tk FROM TaiKhoan tk WHERE tk.email =:email")
+    Optional<TaiKhoan> findByEmail(String email);
 
     @Query("SELECT tk FROM TaiKhoan tk WHERE tk.soDienThoai = :sdt")
     Optional<TaiKhoan> findBySoDienThoai1(String sdt);
 
-//    @Query("SELECT tk FROM TaiKhoan tk WHERE tk.email = :email")
-//    Optional<TaiKhoan> findByEmail1(String email);
+    @Query("SELECT tk FROM TaiKhoan tk WHERE tk.email = :email")
+    TaiKhoan findByEmail1(String email);
 
     @Query("SELECT tk FROM TaiKhoan tk WHERE tk.matKhau = :matKhau")
     List<TaiKhoan> findByMatKhau(String matKhau);
