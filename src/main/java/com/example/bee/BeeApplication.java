@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class BeeApplication {
 
     public static void main(String[] args) {
-//        SpringApplication.run(BeeApplication.class, args);
+        SpringApplication.run(BeeApplication.class, args);
 //        // Tạo mật khẩu và mã hóa nó
 //        String rawPassword = "123";
 //        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

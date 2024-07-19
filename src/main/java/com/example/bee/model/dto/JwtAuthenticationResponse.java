@@ -10,7 +10,7 @@ public class JwtAuthenticationResponse {
 
     private String gmail;
 
-    private String name;
+    private String ten;
 
     private Long roleId;
 
