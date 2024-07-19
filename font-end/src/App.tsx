@@ -45,7 +45,7 @@ import ProtectedRoute from "./pages/admin/component/ProtextedRoute.tsx";
 import DonHangCuaToi from "./pages/shop/don-hang-cua-toi/DonHangCuaToi.tsx";
 import ThongTinDonHang from "./pages/shop/don-hang-cua-toi/ThongTinDonHang.tsx";
 import ProtectedKH from "./pages/admin/component/AuthContext.tsx";
-import DoiMatKhau from "./pages/login/doi-mat-khau/DoiMatKhau.tsx";
+import DoiMatKhau from "./pages/login/doi-mat-khau/doiMatKhau.tsx";
 import UpdateTT from "./pages/login/thong-tin/ThongTin.tsx";
 import AddDCKh from "./pages/login/dia-chi-khach-hang/DiaChiMoi.tsx";
 
