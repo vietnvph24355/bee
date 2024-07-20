@@ -28,20 +28,20 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Autowired
     private SanPhamRepository repository;
 
-//    @Autowired
-//    private ThuongHieuRepository  thuongHieuRepository;
+    @Autowired
+    private ThuongHieuRepository  thuongHieuRepository;
 
-//    @Autowired
-//    private MauSacRepository mauSacRepository;
+    @Autowired
+    private MauSacRepository mauSacRepository;
 
-//    @Autowired
-//    private DiaHinhSanRepository diaHinhSanRepository;
+    @Autowired
+    private DiaHinhSanRepository diaHinhSanRepository;
 
-//    @Autowired
-//    private LoaiDeRepository loaiDeRepository;
+    @Autowired
+    private LoaiDeRepository loaiDeRepository;
 
-//    @Autowired
-//    private KichCoRepository kichCoRepository;
+    @Autowired
+    private KichCoRepository kichCoRepository;
 
     @Autowired
     private SanPhamMapper mapper;
@@ -154,7 +154,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 //    }
 
     @Override
-    public Page<SanPhamFilterResponse> filterSanPham(Integer page, Integer pageSize, Integer sapXep, BigDecimal minPrice, BigDecimal maxPrice, List<Long> listThuongHieu, List<Long> listMauSac, List<Long> listKichCo, List<Long> listLoaiDe, String search) {//, List<Long> listDiaHinhSan
+    public Page<SanPhamFilterResponse> filterSanPham(Integer page, Integer pageSize, Integer sapXep, BigDecimal minPrice, BigDecimal maxPrice, List<Long> listThuongHieu, List<Long> listMauSac, List<Long> listKichCo, List<Long> listLoaiDe, List<Long> listDiaHinhSan, String search) {//
         Sort sort;
         if (sapXep == 3) {
             sort = Sort.by("ten").ascending();
@@ -167,26 +167,26 @@ public class SanPhamServiceImpl implements SanPhamService {
         }
 
         if (listThuongHieu == null || listThuongHieu.isEmpty()){
-//            listThuongHieu = thuongHieuRepository.findByIdIn();
+            listThuongHieu = thuongHieuRepository.findByIdIn();
         }
-//        if (listDiaHinhSan == null || listDiaHinhSan.isEmpty()){
-//            listDiaHinhSan = diaHinhSanRepository.findByIdIn();
-//        }
+        if (listDiaHinhSan == null || listDiaHinhSan.isEmpty()){
+            listDiaHinhSan = diaHinhSanRepository.findByIdIn();
+        }
         if (listMauSac == null || listMauSac.isEmpty()){
-//            listMauSac = mauSacRepository.findByIdIn();
+            listMauSac = mauSacRepository.findByIdIn();
         }
         if (listKichCo == null || listKichCo.isEmpty()){
-//            listKichCo = kichCoRepository.findByIdIn();
+            listKichCo = kichCoRepository.findByIdIn();
         }
         if (listLoaiDe == null || listLoaiDe.isEmpty()){
-//            listLoaiDe = loaiDeRepository.findByIdIn();
+            listLoaiDe = loaiDeRepository.findByIdIn();
         }
 
         System.out.println(search);
 
         Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
 
-        Page<SanPhamFilterResponse> sanPhamPage = repository.filterSanPham(pageable, minPrice, maxPrice, listThuongHieu,listMauSac,  listKichCo, listLoaiDe, search);//listDiaHinhSan,
+        Page<SanPhamFilterResponse> sanPhamPage = repository.filterSanPham(pageable, minPrice, maxPrice, listThuongHieu,listMauSac, listDiaHinhSan, listKichCo, listLoaiDe, search);//
         return sanPhamPage;
     }
 

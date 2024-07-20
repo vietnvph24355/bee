@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface ChiTietSanPhamService {
-    List<ChiTietSanPhamResponse> findByAll(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo);//, Long idDiaHinhSan
+    List<ChiTietSanPhamResponse> findByAll(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo, Long idDiaHinhSan);
 
-    Page<ChiTietSanPhamResponse> findByAllPage(Integer page, Integer pageSize, Long idSanPham, Long idMauSac, Long idKichCo, Long idLoaiDe , BigDecimal minGiaTien, BigDecimal maxGiaTien);//, Long idDiaHinhSan
+    Page<ChiTietSanPhamResponse> findByAllPage(Integer page, Integer pageSize, Long idSanPham, Long idMauSac, Long idKichCo, Long idLoaiDe, Long idDiaHinhSan , BigDecimal minGiaTien, BigDecimal maxGiaTien);
 
     List<ChiTietSanPhamResponse> getListChiTietSanPham();
 
-    ChiTietSanPhamResponse findOne(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo);//, Long idDiaHinhSan
+    ChiTietSanPhamResponse findOne(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo, Long idDiaHinhSan);
 
     ChiTietSanPhamResponse add(CreatedChiTietSanPhamRequest request);
 
@@ -42,7 +42,7 @@ public interface ChiTietSanPhamService {
             Long idLoaiDe,
             Long idMauSac,
             Long idKichCo,
-//            Long idDiaHinhSan,
+            Long idDiaHinhSan,
             Long idThuongHieu
     );
 }

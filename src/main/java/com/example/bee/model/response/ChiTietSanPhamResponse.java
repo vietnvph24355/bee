@@ -1,10 +1,7 @@
 package com.example.bee.model.response;
 
 import com.example.bee.common.CommonEnum;
-import com.example.bee.entity.KichCo;
-import com.example.bee.entity.LoaiDe;
-import com.example.bee.entity.MauSac;
-import com.example.bee.entity.SanPham;
+import com.example.bee.entity.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +29,7 @@ public class ChiTietSanPhamResponse {
 
     private LoaiDe loaiDe;
 
-//    private DiaHinhSan diaHinhSan;
+    private DiaHinhSan diaHinhSan;
 
     private SanPham sanPham;
 

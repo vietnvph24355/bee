@@ -21,11 +21,11 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             "AND (:idMauSac IS NULL OR obj.mauSac.id = :idMauSac OR :idMauSac = '') " +
             "AND (:idKichCo IS NULL OR obj.kichCo.id = :idKichCo OR :idKichCo = '') " +
             "AND (:idLoaiDe IS NULL OR obj.loaiDe.id = :idLoaiDe OR :idLoaiDe = '') " +
-//            "AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '') " +
+            "AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '') " +
             "AND (obj.trangThai = 'ACTIVE') " +
             "GROUP BY obj.id")
-    List<ChiTietSanPham> findByAll(@Param("idSanPham") Long idSanPham, @Param("idMauSac") Long idMauSac, @Param("idKichCo") Long idKichCo, @Param("idLoaiDe") Long idLoaiDe);
-//, @Param("idDiaHinhSan") Long idDiaHinhSan
+    List<ChiTietSanPham> findByAll(@Param("idSanPham") Long idSanPham, @Param("idMauSac") Long idMauSac, @Param("idKichCo") Long idKichCo, @Param("idLoaiDe") Long idLoaiDe, @Param("idDiaHinhSan") Long idDiaHinhSan);
+
 
     @Query("SELECT obj FROM ChiTietSanPham obj " +
             "WHERE obj.trangThai != 'DELETED' " +
@@ -33,7 +33,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             "AND (:idMauSac IS NULL OR obj.mauSac.id = :idMauSac OR :idMauSac = '') " +
             "AND (:idKichCo IS NULL OR obj.kichCo.id = :idKichCo OR :idKichCo = '') " +
             "AND (:idLoaiDe IS NULL OR obj.loaiDe.id = :idLoaiDe OR :idLoaiDe = '') " +
-//            "AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '') " +
+            "AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '') " +
             "AND ((:minGiaTien IS NULL AND :maxGiaTien IS NULL) OR obj.giaTien BETWEEN COALESCE(:minGiaTien, obj.giaTien) AND COALESCE(:maxGiaTien, obj.giaTien))")
     Page<ChiTietSanPham> findByAllPage(
             Pageable pageable,
@@ -41,7 +41,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             @Param("idMauSac") Long idMauSac,
             @Param("idKichCo") Long idKichCo,
             @Param("idLoaiDe") Long idLoaiDe,
-//            @Param("idDiaHinhSan") Long idDiaHinhSan,
+            @Param("idDiaHinhSan") Long idDiaHinhSan,
             @Param("minGiaTien") BigDecimal minGiaTien,
             @Param("maxGiaTien") BigDecimal maxGiaTien
     );
@@ -49,14 +49,15 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             "WHERE (obj.sanPham.id = :idSanPham)" +
             "AND (:idMauSac IS NULL OR obj.mauSac.id = :idMauSac OR :idMauSac = '') " +
             "AND (:idKichCo IS NULL OR obj.kichCo.id = :idKichCo OR :idKichCo = '') " +
-            "AND (:idLoaiDe IS NULL OR obj.loaiDe.id = :idLoaiDe OR :idLoaiDe = '') " )
-//            "AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '')")
-    ChiTietSanPham findOneChiTietSanPham(@Param("idSanPham") Long idSanPham, @Param("idMauSac") Long idMauSac, @Param("idKichCo") Long idKichCo, @Param("idLoaiDe") Long idLoaiDe);//, @Param("idDiaHinhSan") Long idDiaHinhSan
+            "AND (:idLoaiDe IS NULL OR obj.loaiDe.id = :idLoaiDe OR :idLoaiDe = '') " +
+            "AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '')")
+    ChiTietSanPham findOneChiTietSanPham(@Param("idSanPham") Long idSanPham, @Param("idMauSac") Long idMauSac, @Param("idKichCo") Long idKichCo, @Param("idLoaiDe") Long idLoaiDe, @Param("idDiaHinhSan") Long idDiaHinhSan);//
 
     @Query("SELECT obj FROM ChiTietSanPham obj " +
             "WHERE (obj.sanPham.id = :idSanPham)" +
             "AND (obj.mauSac.id = :idMauSac) ORDER BY obj.ngayTao DESC")
     List<ChiTietSanPham> getListSanPhamAndMauSac(@Param("idSanPham") Long idSanPham, @Param("idMauSac") Long idMauSac);
+
     @Query("SELECT obj " +
             "FROM ChiTietSanPham obj " +
             "INNER JOIN SanPham sp ON " +
@@ -65,7 +66,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             "    (sp.ma LIKE %:searchText% OR sp.ten LIKE %:searchText% )" +
             "    AND (obj.giaTien BETWEEN :minGiaTien AND :maxGiaTien)" +
             "    AND (:idMauSac IS NULL OR obj.mauSac.id = :idMauSac OR :idMauSac = '')" +
-//            "    AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '')" +
+            "    AND (:idDiaHinhSan IS NULL OR obj.diaHinhSan.id = :idDiaHinhSan OR :idDiaHinhSan = '')" +
             "    AND (:idKichCo IS NULL OR obj.kichCo.id = :idKichCo OR :idKichCo = '')" +
             "    AND (:idLoaiDe IS NULL OR obj.loaiDe.id = :idLoaiDe OR :idLoaiDe = '')" +
             "    AND (:idThuongHieu IS NULL OR obj.sanPham.thuongHieu.id = :idThuongHieu OR :idThuongHieu = '') " +
@@ -78,7 +79,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             @Param("idLoaiDe") Long idLoaiDe,
             @Param("idMauSac") Long idMauSac,
             @Param("idKichCo") Long idKichCo,
-//            @Param("idDiaHinhSan") Long idDiaHinhSan,
+            @Param("idDiaHinhSan") Long idDiaHinhSan,
             @Param("idThuongHieu") Long idThuongHieu);
 
     @Modifying

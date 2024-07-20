@@ -1,10 +1,7 @@
 package com.example.bee.model.request.update_request;
 
 import com.example.bee.common.CommonEnum;
-import com.example.bee.entity.KichCo;
-import com.example.bee.entity.LoaiDe;
-import com.example.bee.entity.MauSac;
-import com.example.bee.entity.SanPham;
+import com.example.bee.entity.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,8 +28,8 @@ public class UpdatedChiTietSanPhamRequest {
     @NotNull(message = "Vui lòng chọn Loại đế")
     private LoaiDe loaiDe;
 
-//    @NotNull(message = "Vui lòng chọn Địa hình sân")
-//    private DiaHinhSan diaHinhSan;
+    @NotNull(message = "Vui lòng chọn Địa hình sân")
+    private DiaHinhSan diaHinhSan;
 
     @NotNull(message = "Vui lòng chọn Sản phẩm")
     private SanPham sanPham;
