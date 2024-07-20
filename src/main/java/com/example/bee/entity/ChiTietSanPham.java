@@ -55,9 +55,9 @@ public class ChiTietSanPham {
     @JoinColumn(name = "loai_de_id", referencedColumnName = "id")
     private LoaiDe loaiDe;
 
-    @ManyToOne
-    @JoinColumn(name = "dia_hinh_san_id", referencedColumnName = "id")
-    private DiaHinhSan diaHinhSan;
+//    @ManyToOne
+//    @JoinColumn(name = "dia_hinh_san_id", referencedColumnName = "id")
+//    private DiaHinhSan diaHinhSan;
 
     @ManyToOne
     @JoinColumn(name = "san_pham_id", referencedColumnName = "id")
