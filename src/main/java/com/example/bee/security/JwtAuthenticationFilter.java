@@ -20,20 +20,24 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JWTService jwtService;
 
+    private TaiKhoanInfoDetailsServices service;
 
-    private TaiKhoanInfoDetailsServices userServices;
+    public JwtAuthenticationFilter(JWTService jwtService, TaiKhoanInfoDetailsServices service) {
+        this.jwtService = jwtService;
+        this.service = service;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        if(StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader,"Bearer")){
+        if(StringUtils.isEmpty(authHeader) || !org.apache.commons.lang3.StringUtils.startsWith(authHeader,"Bearer")){
             filterChain.doFilter(request,response);
             return;
         }
         String jwt = authHeader.substring(7);
         String userEmail = jwtService.extractUserName(jwt);
         if(StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = userServices.loadUserByUsername(userEmail);
+            UserDetails userDetails = service.loadUserByUsername(userEmail);
 
             if (jwtService.isTokenValid(jwt, userDetails)){
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();

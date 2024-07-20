@@ -34,6 +34,7 @@ public class JWTServiceImpl implements JWTService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+
     }
 
     @Override
@@ -44,20 +45,23 @@ public class JWTServiceImpl implements JWTService {
                 .signWith(getSiginKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-    private Key getSiginKey(){
-        byte[] key = Decoders.BASE64.decode("Z4tibGZgkBlMeRCuOC5Av8K6MozCcWPujJwp0UQofhg=");
-        return Keys.hmacShaKeyFor(key);
-    }
-    private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(getSiginKey()).build().parseClaimsJws(token).getBody();
-    }
-
-    private boolean isTokenExpired(String token){
-        return extractClaim(token, Claims::getExpiration).before(new Date());
-    }
 
     private <T> T extractClaim(String token, Function<Claims,T> claimResolvers){
         final Claims claims = extractAllClaims(token);
         return claimResolvers.apply(claims);
+    }
+
+    private Key getSiginKey(){
+        byte[] key = Decoders.BASE64.decode("Z4tibGZgkBlMeRCuOC5Av8K6MozCcWPujJwp0UQofhg=");
+        return Keys.hmacShaKeyFor(key);
+    }
+
+    private Claims extractAllClaims(String token){
+        return Jwts.parserBuilder().setSigningKey(getSiginKey()).build().parseClaimsJws(token).getBody();
+    }
+
+
+    private boolean isTokenExpired(String token){
+        return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 }

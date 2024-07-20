@@ -4,15 +4,19 @@ import lombok.Data;
 
 @Data
 public class JwtAuthenticationResponse {
-    private String token;
+    private String tokens;
 
     private String refreshToken;
 
-    private String sdt;
+    private String gmail;
 
     private String ten;
 
     private Long roleId;
 
+    private String avatar;
+
     private Long acountId;
+
+
 }

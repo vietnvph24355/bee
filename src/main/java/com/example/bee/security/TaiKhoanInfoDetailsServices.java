@@ -13,14 +13,14 @@ import java.util.Optional;
 @Component
 public class TaiKhoanInfoDetailsServices implements UserDetailsService {
     @Autowired
-    private TaiKhoanRepository userRepository;
+    private TaiKhoanRepository taiKhoanRepository;
 
-    private TaiKhoanInfoDetails userDetails;
+    private TaiKhoanInfoDetails taiKhoanInfoDetails;
 
     @Override
-    public UserDetails loadUserByUsername(String sdt) throws UsernameNotFoundException {
-        Optional<TaiKhoan> userInfo = userRepository.findBySoDienThoai1(sdt);
-        return userInfo.map(TaiKhoanInfoDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("sdt not found"));
+    public UserDetails loadUserByUsername(String gmail) throws UsernameNotFoundException {
+        Optional<TaiKhoan> optional = taiKhoanRepository.findByEmail(gmail);
+        return optional.map(TaiKhoanInfoDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("gmail not found"));
     }
 }
