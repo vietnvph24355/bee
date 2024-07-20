@@ -33,15 +33,15 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
 
 
     @Override
-    public List<ChiTietSanPhamResponse> findByAll(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo) {//, Long idDiaHinhSan
-        List<ChiTietSanPham> list = repository.findByAll(idSanPham, idMauSac, idLoaiDe, idKichCo);
+    public List<ChiTietSanPhamResponse> findByAll(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo, Long idDiaHinhSan) {
+        List<ChiTietSanPham> list = repository.findByAll(idSanPham, idMauSac, idLoaiDe, idKichCo,idDiaHinhSan);
         return mapper.toResponseList(list);
     }
 
     @Override
-    public Page<ChiTietSanPhamResponse> findByAllPage(Integer page, Integer pageSize, Long idSanPham, Long idMauSac, Long idKichCo, Long idLoaiDe, BigDecimal minGiaTien, BigDecimal maxGiaTien) {//, Long idDiaHinhSan
+    public Page<ChiTietSanPhamResponse> findByAllPage(Integer page, Integer pageSize, Long idSanPham, Long idMauSac, Long idKichCo, Long idLoaiDe, Long idDiaHinhSan, BigDecimal minGiaTien, BigDecimal maxGiaTien) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<ChiTietSanPham> sanPhamPage = repository.findByAllPage(pageable, idSanPham, idMauSac, idKichCo, idLoaiDe,minGiaTien,maxGiaTien);
+        Page<ChiTietSanPham> sanPhamPage = repository.findByAllPage(pageable, idSanPham, idMauSac, idKichCo, idLoaiDe,idDiaHinhSan,minGiaTien,maxGiaTien);
         return sanPhamPage.map(mapper::convertEntityToResponse);
     }
 
@@ -53,11 +53,11 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
     }
 
     @Override
-    public ChiTietSanPhamResponse findOne(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo) {//, Long idDiaHinhSan
+    public ChiTietSanPhamResponse findOne(Long idSanPham, Long idMauSac, Long idLoaiDe, Long idKichCo, Long idDiaHinhSan) {
         System.out.println(idSanPham);
         System.out.println(idMauSac);
         System.out.println(idLoaiDe);
-        ChiTietSanPham chiTietSanPham = repository.findOneChiTietSanPham(idSanPham, idMauSac, idLoaiDe, idKichCo);
+        ChiTietSanPham chiTietSanPham = repository.findOneChiTietSanPham(idSanPham, idMauSac, idLoaiDe, idKichCo, idDiaHinhSan);
         return mapper.convertEntityToResponse(chiTietSanPham);
     }
 
@@ -169,7 +169,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         Long idLoaiDe,
         Long idMauSac,
         Long idKichCo,
-//        Long idDiaHinhSan,
+        Long idDiaHinhSan,
         Long idThuongHieu) {
             Sort sort;
             if ("ascend".equals(sortOrder)) {
@@ -181,7 +181,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
             }
 
             Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
-            Page<ChiTietSanPham> pageSanPham = repository.filterChiTietSanPham(pageable, searchText, minGiaTien, maxGiaTien, idLoaiDe, idMauSac, idKichCo, idThuongHieu);//, idDiaHinhSan
+            Page<ChiTietSanPham> pageSanPham = repository.filterChiTietSanPham(pageable, searchText, minGiaTien, maxGiaTien, idLoaiDe, idMauSac, idKichCo,idDiaHinhSan, idThuongHieu);
             return pageSanPham.map(mapper::convertEntityToResponse);
 
         }

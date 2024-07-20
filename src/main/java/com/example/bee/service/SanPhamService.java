@@ -31,7 +31,7 @@ public interface SanPhamService {
             BigDecimal maxPrice,
             List<Long> listThuongHieu,
             List<Long> listMauSac,
-//            List<Long> listDiaHinhSan,
+            List<Long> listDiaHinhSan,
             List<Long> listKichCo,
             List<Long> listLoaiDe,
             String search

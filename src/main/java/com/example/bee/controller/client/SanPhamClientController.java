@@ -34,6 +34,6 @@ public class SanPhamClientController {
             @RequestParam(name = "listMauSac",  required = false) List<Long> listMauSac,
             @RequestParam(name = "search", defaultValue = "") String search
     ) {
-        return ResponseEntity.ok(service.filterSanPham(page, pageSize, sapXep, minPrice, maxPrice, listThuongHieu, listMauSac, listKichCo, listLoaiDe, search));//listDiaHinhSan
+        return ResponseEntity.ok(service.filterSanPham(page, pageSize, sapXep, minPrice, maxPrice, listThuongHieu, listMauSac, listKichCo, listLoaiDe,listDiaHinhSan, search));//
     }
 }

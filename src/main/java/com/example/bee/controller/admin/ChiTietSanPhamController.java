@@ -23,10 +23,10 @@ public class ChiTietSanPhamController {
             @PathVariable("id") Long idSanPham,
             @RequestParam(name = "idMauSac", defaultValue = "") Long idMauSac,
             @RequestParam(name = "idKichCo", defaultValue = "") Long idKichCo,
-            @RequestParam(name = "idLoaiDe", defaultValue = "") Long idLoaiDe
-//            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan
+            @RequestParam(name = "idLoaiDe", defaultValue = "") Long idLoaiDe,
+            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan
     ) {
-        return ResponseEntity.ok(service.findByAll(idSanPham, idMauSac, idKichCo, idLoaiDe));
+        return ResponseEntity.ok(service.findByAll(idSanPham, idMauSac, idKichCo, idLoaiDe,idDiaHinhSan));
     }
 
     @GetMapping("")
@@ -45,11 +45,11 @@ public class ChiTietSanPhamController {
             @RequestParam(name = "idMauSac", defaultValue = "") Long idMauSac,
             @RequestParam(name = "idKichCo", defaultValue = "") Long idKichCo,
             @RequestParam(name = "idLoaiDe", defaultValue = "") Long idLoaiDe,
-          //  @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan,
+            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan,
             @RequestParam(name = "minGiaTien", required = false) BigDecimal minGiaTien,
             @RequestParam(name = "maxGiaTien", required = false) BigDecimal maxGiaTien
     ) {
-        return ResponseEntity.ok(service.findByAllPage(page,pageSize,idSanPham, idMauSac,idKichCo ,idLoaiDe,minGiaTien ,maxGiaTien ));//idDiaHinhSan
+        return ResponseEntity.ok(service.findByAllPage(page,pageSize,idSanPham, idMauSac,idKichCo ,idLoaiDe,idDiaHinhSan,minGiaTien ,maxGiaTien ));
     }
 
     @GetMapping("/list")
@@ -62,10 +62,10 @@ public class ChiTietSanPhamController {
             @PathVariable("id") Long idSanPham,
             @RequestParam(name = "idMauSac", defaultValue = "") Long idMauSac,
             @RequestParam(name = "idKichCo", defaultValue = "") Long idKichCo,
-            @RequestParam(name = "idLoaiDe", defaultValue = "") Long idLoaiDe
-//            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan
+            @RequestParam(name = "idLoaiDe", defaultValue = "") Long idLoaiDe,
+            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan
     ) {
-        return ResponseEntity.ok(service.findOne(idSanPham, idMauSac, idKichCo, idLoaiDe));//idDiaHinhSan
+        return ResponseEntity.ok(service.findOne(idSanPham, idMauSac, idKichCo, idLoaiDe,idDiaHinhSan));
     }
 
     @PostMapping()
@@ -102,10 +102,10 @@ public class ChiTietSanPhamController {
             @RequestParam(name = "idLoaiDe", defaultValue = "") Long idLoaiDe,
             @RequestParam(name = "idMauSac", defaultValue = "") Long idMauSac,
             @RequestParam(name = "idKichCo", defaultValue = "") Long idKichCo,
-//            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan,
+            @RequestParam(name = "idDiaHinhSan", defaultValue = "") Long idDiaHinhSan,
             @RequestParam(name = "idThuongHieu", defaultValue = "") Long idThuongHieu
     ) {
-        return ResponseEntity.ok(service.filterChiTietSanPham(page, pageSize, searchText, sortField, sortOrder, min, max, idLoaiDe, idMauSac, idKichCo, idThuongHieu));//idDiaHinhSan
+        return ResponseEntity.ok(service.filterChiTietSanPham(page, pageSize, searchText, sortField, sortOrder, min, max, idLoaiDe, idMauSac, idKichCo,idDiaHinhSan, idThuongHieu));
     }
 
 }
