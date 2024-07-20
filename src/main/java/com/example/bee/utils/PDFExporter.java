@@ -136,7 +136,7 @@ public class PDFExporter {
             String thuocTinhSanPham = "[" + hdct.getChiTietSanPham().getMauSac().getTen()
                     + " - " + hdct.getChiTietSanPham().getKichCo().getKichCo()
                     + " - " + hdct.getChiTietSanPham().getLoaiDe().getTen()
-                    + " - " + hdct.getChiTietSanPham().getDiaHinhS().getTen()
+                    + " - " + hdct.getChiTietSanPham().getDiaHinhSan().getTen()
                     + "]";
             Paragraph sanPham = new Paragraph(tenSanPham, font);
             Paragraph thuocTinh = new Paragraph(thuocTinhSanPham, font);
@@ -270,7 +270,7 @@ public class PDFExporter {
 
         document.open();
 
-        String imagePath = "src/main/java/com/poly/application/images/logo.jpg";
+        String imagePath = "src/main/java/com/poly/application/images/BeeSport.jpg";
         Image image = Image.getInstance(imagePath);
         image.scaleAbsolute(200, 100); // Điều chỉnh kích thước của ảnh
 
@@ -303,8 +303,8 @@ public class PDFExporter {
         infoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
         Paragraph diaChi = new Paragraph("Địa chỉ: Trịnh Văn Bô - Nam Từ Liêm - Hà Nội", fontInfo);
-        Paragraph sdt = new Paragraph("Số điện thoại : 0987654321 - 0971852413", fontInfo);
-        Paragraph email = new Paragraph("Email : beesport.soccer@gmail.com", fontInfo);
+        Paragraph sdt = new Paragraph("Số điện thoại : 0867291082 - 0867291082", fontInfo);
+        Paragraph email = new Paragraph("Email : beesport.sd73@gmail.com", fontInfo);
 
         diaChi.setAlignment(Element.ALIGN_RIGHT);
         sdt.setAlignment(Element.ALIGN_RIGHT);
