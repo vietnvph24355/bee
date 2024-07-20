@@ -6,9 +6,10 @@ import com.example.bee.model.request.update_request.UpdatedHoaDonRequest;
 import com.example.bee.model.response.HoaDonResponse;
 import com.example.bee.service.HoaDonService;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class HoaDonServiceImpl implements HoaDonService {
     @Override
     public Page<HoaDonResponse> getAll(Integer currentPage, Integer pageSize, String searchText, String sorter, String sortOrder, String loaiHoaDonString, String trangThaiHoaDonString) {
