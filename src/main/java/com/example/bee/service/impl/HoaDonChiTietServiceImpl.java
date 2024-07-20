@@ -5,9 +5,10 @@ import com.example.bee.model.request.update_request.UpdatedHoaDonChiTietRequest;
 import com.example.bee.model.response.HoaDonChiTietResponse;
 import com.example.bee.service.HoaDonChiTietService;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public Page<HoaDonChiTietResponse> getAll(Integer currentPage, Integer pageSize, String searchText, String sorter, String sortOrder) {
