@@ -45,7 +45,7 @@ public class ChiTietSanPhamMapper {
         chiTietSanPham.setNguoiSua(request.getNguoiSua());
         chiTietSanPham.setTrangThai(request.getTrangThai());
         chiTietSanPham.setLoaiDe(request.getLoaiDe());
-//        chiTietSanPham.setDiaHinhSan(request.getDiaHinhSan());
+        chiTietSanPham.setDiaHinhSan(request.getDiaHinhSan());
         chiTietSanPham.setSanPham(request.getSanPham());
         chiTietSanPham.setMauSac(request.getMauSac());
         chiTietSanPham.setKichCo(request.getKichCo());
@@ -61,7 +61,7 @@ public class ChiTietSanPhamMapper {
         chiTietSanPham.setNguoiSua(request.getNguoiSua());
         chiTietSanPham.setTrangThai(request.getTrangThai());
         chiTietSanPham.setLoaiDe(request.getLoaiDe());
-//        chiTietSanPham.setDiaHinhSan(request.getDiaHinhSan());
+        chiTietSanPham.setDiaHinhSan(request.getDiaHinhSan());
         chiTietSanPham.setSanPham(request.getSanPham());
         chiTietSanPham.setMauSac(request.getMauSac());
         chiTietSanPham.setKichCo(request.getKichCo());
