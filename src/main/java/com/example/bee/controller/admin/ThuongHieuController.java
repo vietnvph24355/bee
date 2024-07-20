@@ -1,8 +1,9 @@
 package com.example.bee.controller.admin;
 
-import com.poly.application.model.request.create_request.CreatedThuongHieuRequest;
-import com.poly.application.model.request.update_request.UpdatedThuongHieuRequest;
-import com.poly.application.service.ThuongHieuService;
+
+import com.example.bee.model.request.create_request.CreatedThuongHieuRequest;
+import com.example.bee.model.request.update_request.UpdatedThuongHieuRequest;
+import com.example.bee.service.ThuongHieuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
