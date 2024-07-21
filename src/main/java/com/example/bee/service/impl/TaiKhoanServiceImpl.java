@@ -1,6 +1,8 @@
 package com.example.bee.service.impl;
 
 import com.example.bee.common.CommonEnum;
+import com.example.bee.common.GenCode;
+import com.example.bee.entity.GioHang;
 import com.example.bee.entity.TaiKhoan;
 import com.example.bee.exception.BadRequestException;
 import com.example.bee.exception.NotFoundException;
@@ -9,6 +11,7 @@ import com.example.bee.model.mapper.TaiKhoanMapper;
 import com.example.bee.model.request.create_request.CreatedTaiKhoanRequest;
 import com.example.bee.model.request.update_request.UpdatedTaiKhoanRequest;
 import com.example.bee.model.response.TaiKhoanResponse;
+import com.example.bee.repository.GioHangRepository;
 import com.example.bee.repository.TaiKhoanRepository;
 import com.example.bee.repository.VaiTroRepository;
 import com.example.bee.service.TaiKhoanService;
@@ -53,8 +56,8 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private GioHangRepository gioHangRepository;
+    @Autowired
+    private GioHangRepository gioHangRepository;
 
     @Override
     public Page<TaiKhoanResponse> getAll(Integer page, Integer pageSize, String sortField, String sortOrder, String gioiTinhString, String searchText, String trangThaiString) {
@@ -210,9 +213,9 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
 
     @Override
     public TaiKhoanResponse addKhachHang(CreatedTaiKhoanRequest request) {
-        TaiKhoan soDienThoai = taiKhoanRepository.findBySoDienThoai(request.getSoDienThoai());
+        TaiKhoan soDienThoai = taiKhoanRepository.findTaiKhoanByEmail(request.getSoDienThoai());
         if (soDienThoai != null) {
-            throw new BadRequestException("Số điện thoại đã tồn tại trong hệ thống!");
+            throw new BadRequestException("Email đã tồn tại trong hệ thống!");
         }
         if(request.getGioiTinh()==null){
             request.setGioiTinh(CommonEnum.GioiTinh.OTHER);
@@ -227,11 +230,11 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         emailSender.sendEmail(savedTaiKhoan);
         createdTaiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(savedTaiKhoan.getMatKhau()));
         savedTaiKhoan = taiKhoanRepository.save(createdTaiKhoan);
-//        GioHang gioHang = new GioHang();
-//        gioHang.setMaGioHang(GenCode.generateGioHangCode());
-//        gioHang.setTrangThai(1);
-//        gioHang.setTaiKhoan(taiKhoanRepository.getOne(savedTaiKhoan.getId()));
-//        gioHangRepository.save(gioHang);
+        GioHang gioHang = new GioHang();
+        gioHang.setMaGioHang(GenCode.generateGioHangCode());
+        gioHang.setTrangThai(1);
+        gioHang.setTaiKhoan(taiKhoanRepository.getOne(savedTaiKhoan.getId()));
+        gioHangRepository.save(gioHang);
         return taiKhoanMapper.convertEntityToResponse(savedTaiKhoan);
     }
 

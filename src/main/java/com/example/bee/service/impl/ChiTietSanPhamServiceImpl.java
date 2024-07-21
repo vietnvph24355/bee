@@ -150,7 +150,7 @@ public class ChiTietSanPhamServiceImpl implements ChiTietSanPhamService {
         Optional<ChiTietSanPham> optional = repository.findById(id);
 
         if (optional.isEmpty()) {
-            throw new NotFoundException("Chi tiết sản phẩm không tồn tại");
+            throw new com.amazonaws.services.mq.model.NotFoundException("Chi tiết sản phẩm không tồn tại");
         }
 
         ChiTietSanPham chiTietSanPham = optional.get();

@@ -1,6 +1,8 @@
 package com.example.bee.service.impl;
 
 import com.example.bee.common.CommonEnum;
+import com.example.bee.common.GenCode;
+import com.example.bee.entity.GioHang;
 import com.example.bee.entity.TaiKhoan;
 import com.example.bee.entity.VaiTro;
 import com.example.bee.exception.BadRequestException;
@@ -8,6 +10,7 @@ import com.example.bee.model.dto.JwtAuthenticationResponse;
 import com.example.bee.model.dto.RefreshTokenRequest;
 import com.example.bee.model.dto.SignUpRequest;
 import com.example.bee.model.dto.SigninRequest;
+import com.example.bee.repository.GioHangRepository;
 import com.example.bee.repository.TaiKhoanRepository;
 import com.example.bee.repository.VaiTroRepository;
 import com.example.bee.security.TaiKhoanInfoDetailsServices;
@@ -34,6 +37,9 @@ public class AuthenticationServiceIplm implements AuthenticationService {
 
     @Autowired
     private VaiTroRepository roleRepository;
+
+    @Autowired
+    private GioHangRepository gioHangRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -78,11 +84,11 @@ public class AuthenticationServiceIplm implements AuthenticationService {
         TaiKhoan taiKhoan = userRepository.save(user);
         taiKhoan.setMatKhau(signUpRequest.getMatKhau());
         sendEmailService.sendEmail(taiKhoan);
-//        GioHang gioHang = new GioHang();
-//        gioHang.setMaGioHang(GenCode.generateGioHangCode());
-//        gioHang.setTrangThai(1);
-//        gioHang.setTaiKhoan(userRepository.getOne(taiKhoan.getId()));
-//        gioHangRepository.save(gioHang);
+        GioHang gioHang = new GioHang();
+        gioHang.setMaGioHang(GenCode.generateGioHangCode());
+        gioHang.setTrangThai(1);
+        gioHang.setTaiKhoan(userRepository.getOne(taiKhoan.getId()));
+        gioHangRepository.save(gioHang);
         taiKhoan.setMatKhau(passwordEncoder.encode(taiKhoan.getMatKhau()));
         userRepository.save(taiKhoan);
         return taiKhoan;
@@ -93,9 +99,9 @@ public class AuthenticationServiceIplm implements AuthenticationService {
         Optional<VaiTro> roleId = roleRepository.findById(Long.valueOf(1));
         VaiTro role = roleId.get();
         TaiKhoan user = new TaiKhoan();
-        user.setHoVaTen("hoanggiang");
-        user.setSoDienThoai("0348079280");
-        user.setEmail("giangminh0302@gmail.com");
+        user.setHoVaTen("NguyenViet");
+        user.setSoDienThoai("0867291082");
+        user.setEmail("viet01232003@gmail.com");
         user.setVaiTro(role);
         user.setTrangThai(CommonEnum.TrangThaiThuocTinh.ACTIVE);
         user.setAnhDaiDien("defaultAvatar.jpg");
