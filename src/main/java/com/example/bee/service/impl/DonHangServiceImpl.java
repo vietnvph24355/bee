@@ -122,21 +122,21 @@ public class DonHangServiceImpl implements DonHangService {
                         + " - " + hdct.getChiTietSanPham().getLoaiDe().getTen()
                         + " - " + hdct.getChiTietSanPham().getDiaHinhSan().getTen()
                         + "]";
-            //    tableContent.append("<tr><td>").append(tenSanPham + thuocTinhSanPham).append("</td>")
-                   //     .append("<td>").append(hdct.getSoLuong()).append("</td>")
-                   //     .append("<td>").append(pdfExporter.formatNumberVietNam(hdct.getDonGia())).append("</td>")
-                     //   .append("<td>").append(pdfExporter.formatNumberVietNam(BigDecimal.valueOf(hdct.getSoLuong())
-                     //           .multiply(hdct.getDonGia()))).append("</td></tr>");
+                tableContent.append("<tr><td>").append(tenSanPham + thuocTinhSanPham).append("</td>")
+                        .append("<td>").append(hdct.getSoLuong()).append("</td>")
+                        .append("<td>").append(pdfExporter.formatNumberVietNam(hdct.getDonGia())).append("</td>")
+                        .append("<td>").append(pdfExporter.formatNumberVietNam(BigDecimal.valueOf(hdct.getSoLuong())
+                                .multiply(hdct.getDonGia()))).append("</td></tr>");
 
                 tongThanhTien = tongThanhTien.add(BigDecimal.valueOf(hdct.getSoLuong())
                         .multiply(hdct.getDonGia()));
 
             }
 
-//            tableContent.append("<tr><td colspan=\"3\">Tổng tiền</td><td>").append(pdfExporter.formatNumberVietNam(tongThanhTien)).append("</td></tr>");
-//            tableContent.append("<tr><td colspan=\"3\">Giảm giá</td><td>").append(pdfExporter.formatNumberVietNam(hoaDon.getGiamGia())).append("</td></tr>");
-//            tableContent.append("<tr><td colspan=\"3\">Tiền ship</td><td>").append(pdfExporter.formatNumberVietNam(hoaDon.getPhiShip())).append("</td></tr>");
-//            tableContent.append("<tr><td colspan=\"3\">Tổng thanh toán</td><td>").append(pdfExporter.formatNumberVietNam(hoaDon.getTongTienKhiGiam())).append("</td></tr>");
+            tableContent.append("<tr><td colspan=\"3\">Tổng tiền</td><td>").append(pdfExporter.formatNumberVietNam(tongThanhTien)).append("</td></tr>");
+            tableContent.append("<tr><td colspan=\"3\">Giảm giá</td><td>").append(pdfExporter.formatNumberVietNam(hoaDon.getGiamGia())).append("</td></tr>");
+            tableContent.append("<tr><td colspan=\"3\">Tiền ship</td><td>").append(pdfExporter.formatNumberVietNam(hoaDon.getPhiShip())).append("</td></tr>");
+            tableContent.append("<tr><td colspan=\"3\">Tổng thanh toán</td><td>").append(pdfExporter.formatNumberVietNam(hoaDon.getTongTienKhiGiam())).append("</td></tr>");
 
 
             // Close the table and HTML body
