@@ -23,19 +23,19 @@ public class ThongKeRepository {
 
     public ThongKeTheoDMYResponse thongKeTheoNgay(LocalDate ngayThanhToan) {
         String queryString = "SELECT \n" +
-                "   SUM(CASE WHEN datnsd73.giao_dich.trang_thai_giao_dich = 'SUCCESS' THEN datnsd73.giao_dich.so_tien_giao_dich ELSE 0 END) AS tong_tien_thu_duoc,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'CANCELLED' THEN datnsd73.hoa_don.id END) AS so_don_hang_huy,\n" +
-                "   SUM(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don_chi_tiet.so_luong ELSE 0 END) AS tong_so_san_pham_ban_ra,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'COUNTER' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_tai_quay,\n" +  // Đếm các hóa đơn có loại 'COUNTER'
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'ONLINE' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_online \n" +  // Đếm các hóa đơn có loại 'ONLINE'
+                "   SUM(CASE WHEN du_an_tot_nghiep.giao_dich.trang_thai_giao_dich = 'SUCCESS' THEN du_an_tot_nghiep.giao_dich.so_tien_giao_dich ELSE 0 END) AS tong_tien_thu_duoc,\n" +
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.trang_thai = 'CANCELLED' THEN du_an_tot_nghiep.hoa_don.id END) AS so_don_hang_huy,\n" +
+                "   SUM(CASE WHEN du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don_chi_tiet.so_luong ELSE 0 END) AS tong_so_san_pham_ban_ra,\n" +
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.loai_hoa_don = 'COUNTER' AND du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don.id END) AS tong_so_don_tai_quay,\n" +  // Đếm các hóa đơn có loại 'COUNTER'
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.loai_hoa_don = 'ONLINE' AND du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don.id END) AS tong_so_don_online \n" +  // Đếm các hóa đơn có loại 'ONLINE'
                 "\n" +
                 "FROM hoa_don\n" +
-                "LEFT JOIN datnsd73.hoa_don_chi_tiet ON datnsd73.hoa_don.id = datnsd73.hoa_don_chi_tiet.hoa_don_id\n" +
-                "LEFT JOIN datnsd73.chi_tiet_san_pham ON datnsd73.hoa_don_chi_tiet.chi_tiet_san_pham_id = datnsd73.chi_tiet_san_pham.id \n" +
-                "LEFT JOIN datnsd73.giao_dich ON datnsd73.hoa_don.id = datnsd73.giao_dich.hoa_don_id \n" +
-                " WHERE DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan \n" +
-                "   OR DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan";
+                "LEFT JOIN du_an_tot_nghiep.hoa_don_chi_tiet ON du_an_tot_nghiep.hoa_don.id = du_an_tot_nghiep.hoa_don_chi_tiet.hoa_don_id\n" +
+                "LEFT JOIN du_an_tot_nghiep.chi_tiet_san_pham ON du_an_tot_nghiep.hoa_don_chi_tiet.chi_tiet_san_pham_id = du_an_tot_nghiep.chi_tiet_san_pham.id \n" +
+                "LEFT JOIN du_an_tot_nghiep.giao_dich ON du_an_tot_nghiep.hoa_don.id = du_an_tot_nghiep.giao_dich.hoa_don_id \n" +
+                " WHERE DATE(du_an_tot_nghiep.giao_dich.ngay_thanh_toan) = :ngayThanhToan \n" +
+                "   OR DATE(du_an_tot_nghiep.giao_dich.ngay_thanh_toan) = :ngayThanhToan";
 
 
         Object[] result = (Object[]) entityManager.createNativeQuery(queryString)
@@ -63,19 +63,19 @@ public class ThongKeRepository {
     public ThongKeTheoDMYResponse thongKeTheoTuan(LocalDate startOfWeek, LocalDate endOfWeek) {
 
         String queryString = "SELECT \n" +
-                "   SUM(CASE WHEN datnsd73.giao_dich.trang_thai_giao_dich = 'SUCCESS' THEN datnsd73.giao_dich.so_tien_giao_dich ELSE 0 END) AS tong_tien_thu_duoc,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'CANCELLED' THEN datnsd73.hoa_don.id END) AS so_don_hang_huy,\n" +
-                "   SUM(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don_chi_tiet.so_luong ELSE 0 END) AS tong_so_san_pham_ban_ra,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'COUNTER' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_tai_quay,\n" +  // Đếm các hóa đơn có loại 'COUNTER'
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'ONLINE' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_online \n" +  // Đếm các hóa đơn có loại 'ONLINE'
+                "   SUM(CASE WHEN du_an_tot_nghiep.giao_dich.trang_thai_giao_dich = 'SUCCESS' THEN du_an_tot_nghiep.giao_dich.so_tien_giao_dich ELSE 0 END) AS tong_tien_thu_duoc,\n" +
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.trang_thai = 'CANCELLED' THEN du_an_tot_nghiep.hoa_don.id END) AS so_don_hang_huy,\n" +
+                "   SUM(CASE WHEN du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don_chi_tiet.so_luong ELSE 0 END) AS tong_so_san_pham_ban_ra,\n" +
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.loai_hoa_don = 'COUNTER' AND du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don.id END) AS tong_so_don_tai_quay,\n" +  // Đếm các hóa đơn có loại 'COUNTER'
+                "   COUNT(CASE WHEN du_an_tot_nghiep.hoa_don.loai_hoa_don = 'ONLINE' AND du_an_tot_nghiep.hoa_don.trang_thai = 'APPROVED' THEN du_an_tot_nghiep.hoa_don.id END) AS tong_so_don_online \n" +  // Đếm các hóa đơn có loại 'ONLINE'
                 "\n" +
                 "FROM hoa_don\n" +
-                "LEFT JOIN datnsd73.hoa_don_chi_tiet ON datnsd73.hoa_don.id = datnsd73.hoa_don_chi_tiet.hoa_don_id\n" +
-                "LEFT JOIN datnsd73.chi_tiet_san_pham ON datnsd73.hoa_don_chi_tiet.chi_tiet_san_pham_id = datnsd73.chi_tiet_san_pham.id\n" +
-                "LEFT JOIN datnsd73.giao_dich ON datnsd73.hoa_don.id = datnsd73.giao_dich.hoa_don_id \n" +
-                "WHERE (DATE(datnsd73.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek \n" +
-                "   OR DATE(datnsd73.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek)";
+                "LEFT JOIN du_an_tot_nghiep.hoa_don_chi_tiet ON du_an_tot_nghiep.hoa_don.id = du_an_tot_nghiep.hoa_don_chi_tiet.hoa_don_id\n" +
+                "LEFT JOIN du_an_tot_nghiep.chi_tiet_san_pham ON du_an_tot_nghiep.hoa_don_chi_tiet.chi_tiet_san_pham_id = du_an_tot_nghiep.chi_tiet_san_pham.id\n" +
+                "LEFT JOIN du_an_tot_nghiep.giao_dich ON du_an_tot_nghiep.hoa_don.id = du_an_tot_nghiep.giao_dich.hoa_don_id \n" +
+                "WHERE (DATE(du_an_tot_nghiep.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek \n" +
+                "   OR DATE(du_an_tot_nghiep.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek)";
 
         Object[] result = (Object[]) entityManager.createNativeQuery(queryString)
                 .setParameter("startOfWeek", startOfWeek)
@@ -183,5 +183,6 @@ public class ThongKeRepository {
 
         return dtos;
     }
+
 
 }
