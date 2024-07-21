@@ -11,24 +11,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AwS3Config {
-    @Value("${aws.accessKey}")
-    private String accessKey;
 
-    @Value("${aws.secretKey}")
-    private String secretKey;
-
-    @Value("${aws.region}")
-    private String region;
-
-    @Value("${aws.s3.bucketName}")
-    private String bucketName;
-
-    @Bean
-    public AmazonS3 amazonS3Client() {
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-        return AmazonS3Client.builder()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(region) // Thay đổi thành vùng mong muốn của bạn
-                .build();
-    }
 }
