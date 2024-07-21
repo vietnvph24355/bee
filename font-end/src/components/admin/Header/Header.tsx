@@ -5,7 +5,7 @@ import {requestDangNhap, requestLogout} from "~/utils/request";
 import { Link, useNavigate } from "react-router-dom";
 import { FaDoorOpen } from "react-icons/fa";
 import ModalThongTin from "~/pages/login/thong-tin/ThongTin";
-import ModalDoiMK from "~/pages/login/doi-mat-khau/doiMatKhau";
+import ModalDoiMK from "~/pages/login/doi-mat-khau/DoiMatKhau";
 
 
 const CustomHeader: React.FC<{

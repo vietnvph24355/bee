@@ -15,7 +15,7 @@ export const CustomFooter: React.FC = () => {
         zIndex: 1,
       }}
     >
-      BeeSports ©2024 Created by SD-73
+      BeeSport ©2023 Created by SD-16
     </Layout.Footer>
   );
 };

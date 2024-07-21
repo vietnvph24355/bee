@@ -40,7 +40,7 @@ export const requestDangKi = axios.create({
     timeout: 10000,
 });
 export const request4s = axios.create({
-    baseURL: "http://localhost:8080/admin/api",
+    baseURL: "http://localhost:8081/admin/api",
     timeout: 5000,
 });
 export const requestLogout = axios.create({
