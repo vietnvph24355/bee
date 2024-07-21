@@ -1,9 +1,10 @@
 package com.example.bee.model.mapper;
 
-import com.poly.application.entity.PhuongThucThanhToan;
-import com.poly.application.model.request.create_request.CreatePhuongThucThanhToanRequest;
-import com.poly.application.model.request.update_request.UpdatedPhuongThucThanhToanRequest;
-import com.poly.application.model.response.PhuongThucThanhToanResponse;
+
+import com.example.bee.entity.PhuongThucThanhToan;
+import com.example.bee.model.request.create_request.CreatePhuongThucThanhToanRequest;
+import com.example.bee.model.request.update_request.UpdatedPhuongThucThanhToanRequest;
+import com.example.bee.model.response.PhuongThucThanhToanResponse;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
