@@ -33,7 +33,7 @@ interface Option {
   isLeaf?: boolean;
 }
 
-function ModalAddDiaChi({ openModal, closeModal }) {
+function ModalAddDiaChi({ openModal, closeModal }:any) {
   const [form] = Form.useForm();
   const [provinces, setProvinces] = useState<Option[]>([]);
   const [test, setTest] = useState(false);

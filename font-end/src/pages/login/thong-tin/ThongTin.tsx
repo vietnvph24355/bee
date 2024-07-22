@@ -33,7 +33,7 @@ import { requestDoiMK } from "~/utils/requestDoiMK";
 import ModalDiaChi from "../dia-chi-khach-hang/DiaChiTableModal";
 
 const { confirm } = Modal;
-function ModalThongTin({ openModal, closeModal }) {
+function ModalThongTin({ openModal, closeModal }:any) {
   const [modalAddDiaChi, setModalAddDiaChi] = useState(false);
   const [modalDiaChi, setModalDiaChi] = useState(false);
   const [data, setData] = useState<DataType | null>(null);
