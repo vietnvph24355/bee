@@ -32,7 +32,7 @@ import request from "~/utils/request";
 import { requestDC } from "~/utils/requestDiaChi";
 
 const { confirm } = Modal;
-function ModalUpdateDCKhachHang({ openModal, closeModal, id }) {
+function ModalUpdateDCKhachHang({ openModal, closeModal, id }:any) {
   const [data, setData] = useState<DataType | null>(null);
   const [wardCode1, setWardCode1] = useState(data?.phuongXa);
   const [provinces, setProvinces] = useState<Option[]>([]);

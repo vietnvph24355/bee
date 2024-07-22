@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { DoiMatKhauRequest } from "~/interfaces/taiKhoan.type";
 import { requestDoiMK } from "~/utils/requestDoiMK";
 const { confirm } = Modal;
-function ModalDoiMK({ openModal, closeModal }) {
+
+function ModalDoiMK({ openModal, closeModal }: any) {
     const doiMK = localStorage.getItem("acountId");
     const roleId = localStorage.getItem("roleId");
     const navigate = useNavigate();
