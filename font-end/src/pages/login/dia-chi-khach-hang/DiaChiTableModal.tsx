@@ -62,7 +62,7 @@ const DescriptionItem: React.FC<DescriptionItemProps> = ({
   </Space>
 );
 
-function ModalDiaChi({ openModal, closeModal }) {
+function ModalDiaChi({ openModal, closeModal }:any) {
   const [modal1Open, setModal1Open] = useState(false);
   const [id, setIdDiaChi] = useState();
   const [districtId, setDistrictId] = useState();
