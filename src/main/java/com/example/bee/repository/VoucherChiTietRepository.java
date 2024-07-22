@@ -24,7 +24,7 @@ public interface VoucherChiTietRepository extends JpaRepository<VoucherChiTiet, 
     @Query("SELECT obj FROM VoucherChiTiet obj WHERE obj.voucher.id = :idVoucher")
     List<VoucherChiTiet> getAllList(@Param("idVoucher") Long idVoucher);
 
-    @Query("SELECT new com.poly.application.model.response.VoucherChiTietResponseMapping(" +
+    @Query("SELECT new com.example.bee.model.response.VoucherChiTietResponseMapping(" +
             "vc.id, vc.soLanSuDung, vc.ngayTao, vc.ngaySua, vc.trangThai, tk.id, vc.taiKhoan, COUNT(hd.id)) " +
             "FROM VoucherChiTiet vc " +
             "JOIN vc.taiKhoan tk " +
