@@ -26,7 +26,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
     @Query("SELECT DISTINCT obj FROM SanPham obj " +
             "INNER JOIN obj.listChiTietSanPham ctsp " +
             "WHERE (obj.ma LIKE %:searchText% OR obj.ten LIKE %:searchText%) " +
-            "AND (:thuongHieuId IS NULL OR obj.thuongHieu.id = :thuongHieuId OR :thuongHieuId = '') " +
+            "AND (:thuongHieuId IS NULL OR obj.thuongHieu.id = :thuongHieuId ) " +
             "AND (:trangThai IS NULL OR obj.trangThai = :trangThai) " +
             "ORDER BY obj.ngayTao DESC")
     Page<SanPham> findByAll(Pageable pageable, String searchText, Long thuongHieuId, CommonEnum.TrangThaiSanPham trangThai);
@@ -36,7 +36,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
     @Query("SELECT sp FROM SanPham sp WHERE sp.trangThai = 'ACTIVE' ORDER BY sp.ngayTao DESC")
     List<SanPham> get5SanPhamMoiNhat();
 
-    @Query(value = "SELECT NEW com.poly.application.model.response.SanPhamFilterResponse(sp.id, sp.ten, MIN(cps.giaTien), MAX(cps.giaTien), hi.duongDan, sp.ngayTao) " +
+    @Query(value = "SELECT NEW com.example.bee.model.response.SanPhamFilterResponse(sp.id, sp.ten, MIN(cps.giaTien), MAX(cps.giaTien), hi.duongDan, sp.ngayTao) " +
             "FROM SanPham sp " +
             "JOIN ChiTietSanPham cps ON sp.id = cps.sanPham.id " +
             "JOIN HinhAnhSanPham hi ON sp.id = hi.sanPham.id " +

@@ -20,7 +20,7 @@ import java.util.Optional;
 public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 
     @Query("SELECT obj FROM Voucher obj WHERE (obj.ma LIKE %:searchText% OR obj.ten LIKE %:searchText%)" +
-//            "AND (:hinhThucGiamGiaId IS NULL OR obj.hinhThucGiamGia.id = :hinhThucGiamGiaId OR :hinhThucGiamGiaId = '')" +
+            "AND (:hinhThucGiamGiaId IS NULL OR obj.hinhThucGiamGia.id = :hinhThucGiamGiaId)" +
             "AND (:trangThai IS NULL OR obj.trangThai = :trangThai)" +
             "AND (:ngayBatDau IS NULL OR obj.ngayBatDau >= :ngayBatDau)" +
             "AND (:ngayKetThuc IS NULL OR obj.ngayKetThuc <= :ngayKetThuc)")
