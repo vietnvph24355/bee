@@ -31,13 +31,20 @@ public class ChiTietSanPham {
     @Column(name = "gia_tien")
     private BigDecimal giaTien;
 
-    @CreationTimestamp
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "ngay_tao", columnDefinition = "TIMESTAMP")
-    private LocalDateTime ngayTao;
+//    @CreationTimestamp
+//    @ColumnDefault("CURRENT_TIMESTAMP")
+//    @Column(name = "ngay_tao", columnDefinition = "TIMESTAMP")
+//    private LocalDateTime ngayTao;
+//
+//    @UpdateTimestamp
+//    @ColumnDefault("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+//    @Column(name = "ngay_sua", columnDefinition = "TIMESTAMP")
+//    private LocalDateTime ngaySua;
+@CreationTimestamp
+@Column(name = "ngay_tao", columnDefinition = "TIMESTAMP")
+private LocalDateTime ngayTao;
 
     @UpdateTimestamp
-    @ColumnDefault("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Column(name = "ngay_sua", columnDefinition = "TIMESTAMP")
     private LocalDateTime ngaySua;
 
