@@ -32,7 +32,7 @@ public class ThongKeRepository {
                 "\n" +
                 "FROM hoa_don\n" +
                 "LEFT JOIN datnsd73.hoa_don_chi_tiet ON datnsd73.hoa_don.id = datnsd73.hoa_don_chi_tiet.hoa_don_id\n" +
-                "LEFT JOIN datnsd73.chi_tiet_san_pham ON datnsd73.datnsd73.chi_tiet_san_pham_id = datnsd73.chi_tiet_san_pham.id \n" +
+                "LEFT JOIN datnsd73.chi_tiet_san_pham ON datnsd73.hoa_don_chi_tiet.chi_tiet_san_pham_id = datnsd73.chi_tiet_san_pham.id \n" +
                 "LEFT JOIN datnsd73.giao_dich ON datnsd73.hoa_don.id = datnsd73.giao_dich.hoa_don_id \n" +
                 " WHERE DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan \n" +
                 "   OR DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan";
