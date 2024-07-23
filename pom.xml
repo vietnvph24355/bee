@@ -139,6 +139,12 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!--    Tomcat-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+
         <!-- Send Email -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

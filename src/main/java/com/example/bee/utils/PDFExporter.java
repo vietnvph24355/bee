@@ -270,7 +270,7 @@ public class PDFExporter {
 
         document.open();
 
-        String imagePath = "src/main/java/com/poly/application/images/BeeSport.jpg";
+        String imagePath = "src/main/java/com/example/bee/images/BeeSport.jpg";
         Image image = Image.getInstance(imagePath);
         image.scaleAbsolute(200, 100); // Điều chỉnh kích thước của ảnh
 

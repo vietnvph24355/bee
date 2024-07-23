@@ -62,9 +62,9 @@ public class AuthenticationServiceIplm implements AuthenticationService {
 
     @Override
     public TaiKhoan signup(SignUpRequest signUpRequest) {
-        TaiKhoan soDienThoai = userRepository.findBySoDienThoai(signUpRequest.getSoDienThoai());
-        if (soDienThoai != null) {
-            throw new BadRequestException("Số điện thoại đã tồn tại trong hệ thống!");
+        TaiKhoan email = userRepository.findTaiKhoanByEmail(signUpRequest.getEmail());
+        if (email != null) {
+            throw new BadRequestException("E-Mail đã tồn tại trong hệ thống!");
         }
         if(signUpRequest.getGioiTinh()==null){
             signUpRequest.setGioiTinh(CommonEnum.GioiTinh.OTHER);
