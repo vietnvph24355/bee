@@ -40,6 +40,10 @@ public class SanPhamController {
         return ResponseEntity.noContent().build();
     }
 
+//    @PutMapping("/{id}")
+//    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody UpdatedSanPhamRequest request) {
+//        return ResponseEntity.ok(service.update(id, request));
+//    }
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody UpdatedSanPhamRequest request) {
         return ResponseEntity.ok(service.update(id, request));
