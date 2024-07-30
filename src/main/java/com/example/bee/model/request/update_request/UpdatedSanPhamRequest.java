@@ -16,7 +16,7 @@ public class UpdatedSanPhamRequest {
     private String moTa;
 
     @NotNull(message = "Vui lòng chọn thương hiệu")
-    private Long thuongHieuId;
+    private ThuongHieu thuongHieu;
 
     private CommonEnum.TrangThaiThuocTinh trangThai;
 

@@ -28,7 +28,7 @@ public class ThongKeServiceImpl implements ThongKeService {
     private ThongKeRepository repository;
 
     @Override
-    public ThongKeTheoDMYResponse thongKeTheoNgay(LocalDate ngayThanhToan) {
+    public ThongKeTheoDMYResponse thongKeTheoNgay(LocalDate ngayThanhToan ) {
         return repository.thongKeTheoNgay(ngayThanhToan);
     }
 
