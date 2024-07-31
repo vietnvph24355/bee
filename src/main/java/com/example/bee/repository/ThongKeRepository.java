@@ -24,19 +24,17 @@ public class ThongKeRepository {
     public ThongKeTheoDMYResponse thongKeTheoNgay(LocalDate ngayThanhToan) {
         String queryString = "SELECT \n" +
                 "   SUM(CASE WHEN datnsd73.giao_dich.trang_thai_giao_dich = 'SUCCESS' THEN datnsd73.giao_dich.so_tien_giao_dich ELSE 0 END) AS tong_tien_thu_duoc,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'CANCELLED' THEN datnsd73.hoa_don.id END) AS so_don_hang_huy,\n" +
+                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' AND (DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan) THEN datnsd73.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
+                "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'CANCELLED' AND (DATE(datnsd73.hoa_don.ngay_sua) = :ngayThanhToan) THEN datnsd73.hoa_don.id END) AS so_don_hang_huy,\n" +
                 "   SUM(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don_chi_tiet.so_luong ELSE 0 END) AS tong_so_san_pham_ban_ra,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'COUNTER' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_tai_quay,\n" +  // Đếm các hóa đơn có loại 'COUNTER'
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'ONLINE' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_online \n" +  // Đếm các hóa đơn có loại 'ONLINE'
-                "\n" +
+                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'COUNTER' AND datnsd73.hoa_don.trang_thai = 'APPROVED' AND (DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan) THEN datnsd73.hoa_don.id END) AS tong_so_don_tai_quay,\n" +
+                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'ONLINE' AND datnsd73.hoa_don.trang_thai = 'APPROVED' AND (DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan) THEN datnsd73.hoa_don.id END) AS tong_so_don_online \n" +
                 "FROM hoa_don\n" +
                 "LEFT JOIN datnsd73.hoa_don_chi_tiet ON datnsd73.hoa_don.id = datnsd73.hoa_don_chi_tiet.hoa_don_id\n" +
                 "LEFT JOIN datnsd73.chi_tiet_san_pham ON datnsd73.hoa_don_chi_tiet.chi_tiet_san_pham_id = datnsd73.chi_tiet_san_pham.id \n" +
                 "LEFT JOIN datnsd73.giao_dich ON datnsd73.hoa_don.id = datnsd73.giao_dich.hoa_don_id \n" +
-                " WHERE DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan \n" +
-                "   OR DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan";
-
+                "WHERE (datnsd73.hoa_don.trang_thai <> 'CANCELLED' AND DATE(datnsd73.giao_dich.ngay_thanh_toan) = :ngayThanhToan) \n" +
+                "   OR (datnsd73.hoa_don.trang_thai = 'CANCELLED' AND DATE(datnsd73.hoa_don.ngay_sua) = :ngayThanhToan)";
 
         Object[] result = (Object[]) entityManager.createNativeQuery(queryString)
                 .setParameter("ngayThanhToan", ngayThanhToan)
@@ -67,15 +65,14 @@ public class ThongKeRepository {
                 "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS so_don_hang_thanh_cong,\n" +
                 "   COUNT(CASE WHEN datnsd73.hoa_don.trang_thai = 'CANCELLED' THEN datnsd73.hoa_don.id END) AS so_don_hang_huy,\n" +
                 "   SUM(CASE WHEN datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don_chi_tiet.so_luong ELSE 0 END) AS tong_so_san_pham_ban_ra,\n" +
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'COUNTER' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_tai_quay,\n" +  // Đếm các hóa đơn có loại 'COUNTER'
-                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'ONLINE' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_online \n" +  // Đếm các hóa đơn có loại 'ONLINE'
-                "\n" +
+                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'COUNTER' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_tai_quay,\n" +
+                "   COUNT(CASE WHEN datnsd73.hoa_don.loai_hoa_don = 'ONLINE' AND datnsd73.hoa_don.trang_thai = 'APPROVED' THEN datnsd73.hoa_don.id END) AS tong_so_don_online \n" +
                 "FROM hoa_don\n" +
                 "LEFT JOIN datnsd73.hoa_don_chi_tiet ON datnsd73.hoa_don.id = datnsd73.hoa_don_chi_tiet.hoa_don_id\n" +
                 "LEFT JOIN datnsd73.chi_tiet_san_pham ON datnsd73.hoa_don_chi_tiet.chi_tiet_san_pham_id = datnsd73.chi_tiet_san_pham.id\n" +
                 "LEFT JOIN datnsd73.giao_dich ON datnsd73.hoa_don.id = datnsd73.giao_dich.hoa_don_id \n" +
-                "WHERE (DATE(datnsd73.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek \n" +
-                "   OR DATE(datnsd73.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek)";
+                "WHERE (DATE(datnsd73.giao_dich.ngay_thanh_toan) BETWEEN :startOfWeek AND :endOfWeek)\n" +
+                "   OR (DATE(datnsd73.hoa_don.ngay_sua) BETWEEN :startOfWeek AND :endOfWeek)";
 
         Object[] result = (Object[]) entityManager.createNativeQuery(queryString)
                 .setParameter("startOfWeek", startOfWeek)
@@ -89,7 +86,6 @@ public class ThongKeRepository {
         Long tongSoDonTaiQuay = result[4] != null ? ((Number) result[4]).longValue() : 0L;
         Long tongSoDonOnline = result[5] != null ? ((Number) result[5]).longValue() : 0L;
 
-
         ThongKeTheoDMYResponse response = new ThongKeTheoDMYResponse();
         response.setTongDoanhThu(tongTien);
         response.setTongSoDonThanhCong(soDonThanhCong);
@@ -98,9 +94,9 @@ public class ThongKeRepository {
         response.setTongSoDonTaiQuay(tongSoDonTaiQuay);
         response.setTongSoDonOnline(tongSoDonOnline);
 
-
         return response;
     }
+
 
     public Page<ThongKeSoLuongTonResponse> thongKeSoLuongTon(Pageable pageable) {
         String queryString = "SELECT sp.id AS sanPhamId, sp.ten AS tenSanPham, SUM(ct.so_luong) AS tongSoLuong " +
