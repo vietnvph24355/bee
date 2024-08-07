@@ -249,21 +249,16 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         Optional<TaiKhoan> optionalTaiKhoan = taiKhoanRepository.findById(passwordRequest.getId());
         if (optionalTaiKhoan.isPresent()) {
             TaiKhoan accountId = optionalTaiKhoan.get();
-            System.out.println("aaaa"+accountId);
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountId.getSoDienThoai(), passwordRequest.getMatKhauCu()));
-
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountId.getEmail(), passwordRequest.getMatKhauCu()));
             if (authentication.isAuthenticated()) {
                 System.out.println("da vao");
-
                 if(!passwordRequest.getMatKhauMoi().equals(passwordRequest.getNhapLaiMatKhau())){
                     return"Mật khẩu nhập lại phải trùng nhau";
                 }
-
                 accountId.setMatKhau(passwordEncoder.encode(passwordRequest.getNhapLaiMatKhau()));
                 taiKhoanRepository.save(accountId);
                 return"Bạn đã đổi mật khẩu thành công";
             }
-
             else {
                 return"Mật khẩu cũ không trùng với mật khẩu của tài khoản";
             }
@@ -271,14 +266,11 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
             return "Đổi mật khẩu thất bại";
         }
     }
-
     @Override
     public byte[] exportExcelTaiKhoan() throws IOException {
         List<TaiKhoan> taiKhoanList = taiKhoanRepository.findAllNhanVienExcel(); // Implement this method in your service
-
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("TaiKhoan");
-
         // Create header row
         Row headerRow = sheet.createRow(0);
         headerRow.createCell(0).setCellValue("ID");
