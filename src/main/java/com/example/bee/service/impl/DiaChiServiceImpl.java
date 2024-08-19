@@ -2,6 +2,7 @@ package com.example.bee.service.impl;
 
 import com.example.bee.common.CommonEnum;
 import com.example.bee.entity.DiaChi;
+import com.example.bee.entity.TaiKhoan;
 import com.example.bee.exception.NotFoundException;
 import com.example.bee.model.mapper.DiaChiMapper;
 import com.example.bee.model.request.create_request.CreatedDiaChiRequest;
@@ -55,20 +56,22 @@ public class DiaChiServiceImpl implements DiaChiService {
         Page<DiaChi> diaChiPage = diaChiRepository.findAllByTaiKhoanId(pageable, searchText, trangThai, idKH);
         return diaChiPage.map(diaChiMapper::convertEntityToResponse);
     }
-
     @Override
-    public DiaChiReponse add(Long id, CreatedDiaChiRequest request) {
+    public DiaChiReponse add(Long taiKhoanId, CreatedDiaChiRequest request) {
+        // Chuyển đổi yêu cầu tạo thành thực thể địa chỉ
         DiaChi createdDiaChi = diaChiMapper.convertCreateResponseToEntity(request);
-        Optional<DiaChi> optional = diaChiRepository.findById(id);
-        if (optional.isEmpty()) {
-            throw new NotFoundException("Địa chỉ không tồn tại");
+
+        // Kiểm tra sự tồn tại của tài khoản
+        Optional<TaiKhoan> optionalTaiKhoan = taiKhoanRepository.findById(taiKhoanId);
+        if (optionalTaiKhoan.isEmpty()) {
+            throw new NotFoundException("Tài khoản không tồn tại");
         }
 
-        DiaChi detail = optional.get();
+        TaiKhoan taiKhoan = optionalTaiKhoan.get();
 
         if (request.getTrangThaiDiaChi() == CommonEnum.TrangThaiDiaChi.DEFAULT) {
-            // Đặt các địa chỉ khác thành ACTIVE
-            diaChiRepository.findByTaiKhoanAndIdNot(detail.getTaiKhoan(), id)
+            // Đặt các địa chỉ khác của tài khoản thành ACTIVE
+            diaChiRepository.findByTaiKhoanAndIdNot(taiKhoan, null) // Lọc theo tài khoản và không theo id
                     .forEach(address -> {
                         address.setTrangThaiDiaChi(CommonEnum.TrangThaiDiaChi.ACTIVE);
                         diaChiRepository.save(address);
@@ -77,10 +80,38 @@ public class DiaChiServiceImpl implements DiaChiService {
 
         // Đặt địa chỉ hiện tại thành trạng thái được yêu cầu
         createdDiaChi.setTrangThaiDiaChi(request.getTrangThaiDiaChi());
-        createdDiaChi.setTaiKhoan(taiKhoanRepository.findId(id));
+        createdDiaChi.setTaiKhoan(taiKhoan);
+
+        // Lưu địa chỉ mới
         DiaChi savedDC = diaChiRepository.save(createdDiaChi);
         return diaChiMapper.convertEntityToResponse(savedDC);
     }
+
+//    @Override
+//    public DiaChiReponse add(Long id, CreatedDiaChiRequest request) {
+//        DiaChi createdDiaChi = diaChiMapper.convertCreateResponseToEntity(request);
+//        Optional<DiaChi> optional = diaChiRepository.findById(id);
+//        if (optional.isEmpty()) {
+//            throw new NotFoundException("Địa chỉ không tồn tại");
+//        }
+//
+//        DiaChi detail = optional.get();
+//
+//        if (request.getTrangThaiDiaChi() == CommonEnum.TrangThaiDiaChi.DEFAULT) {
+//            // Đặt các địa chỉ khác thành ACTIVE
+//            diaChiRepository.findByTaiKhoanAndIdNot(detail.getTaiKhoan(), id)
+//                    .forEach(address -> {
+//                        address.setTrangThaiDiaChi(CommonEnum.TrangThaiDiaChi.ACTIVE);
+//                        diaChiRepository.save(address);
+//                    });
+//        }
+//
+//        // Đặt địa chỉ hiện tại thành trạng thái được yêu cầu
+//        createdDiaChi.setTrangThaiDiaChi(request.getTrangThaiDiaChi());
+//        createdDiaChi.setTaiKhoan(taiKhoanRepository.findId(id));
+//        DiaChi savedDC = diaChiRepository.save(createdDiaChi);
+//        return diaChiMapper.convertEntityToResponse(savedDC);
+//    }
 
     @Override
     public List<DiaChiReponse> findByListDiaChi(Long idTaiKhoan) {
