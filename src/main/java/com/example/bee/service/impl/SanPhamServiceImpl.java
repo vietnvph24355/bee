@@ -80,7 +80,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public SanPhamResponse add(CreatedSanPhamRequest request) {
-        if (repository.existsByTen(request.getTen())) {
+        if (repository.existsByTen(request.getTen().trim())) {
             throw new BadRequestException("Tên sản phẩm đã tồn tại trong hệ thống!");
         }
         SanPham createdSanPham = mapper.convertCreateRequestToEntity(request);
@@ -121,7 +121,7 @@ public class SanPhamServiceImpl implements SanPhamService {
             throw new NotFoundException("Sản phẩm không tồn tại!");
         }
         SanPham detail = optional.get();
-        if (!request.getTen().equals(optional.get().getTen())&&repository.existsByTen(request.getTen())) {
+        if (!request.getTen().equals(optional.get().getTen().trim())&&repository.existsByTen(request.getTen().trim())) {
             throw new BadRequestException("Tên sản phẩm đã tồn tại trong hệ thống!");
         }
 
