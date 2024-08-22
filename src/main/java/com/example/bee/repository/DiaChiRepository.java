@@ -1,6 +1,7 @@
 package com.example.bee.repository;
 
 import com.example.bee.common.CommonEnum;
+import com.example.bee.common.CommonEnum.TrangThaiDiaChi;
 import com.example.bee.entity.DiaChi;
 import com.example.bee.entity.TaiKhoan;
 import org.springframework.data.domain.Page;
@@ -65,5 +66,9 @@ public interface DiaChiRepository extends JpaRepository<DiaChi, Long> {
     );
 
     List<DiaChi> findByTaiKhoanAndIdNot(TaiKhoan taiKhoan, Long id);
+
+    List<DiaChi> findDiaChiByTrangThaiDiaChi(CommonEnum.TrangThaiDiaChi taiKhoan);
+
+
 
 }
