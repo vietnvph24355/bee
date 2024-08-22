@@ -12,18 +12,18 @@ import com.example.bee.model.response.VoucherResponse;
 import com.example.bee.repository.VoucherRepository;
 import com.example.bee.service.VoucherService;
 import com.example.bee.utils.VoucherUtils;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class VoucherServiceImpl implements VoucherService {
@@ -83,9 +83,13 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public VoucherResponse add(CreatedVoucherRequest request) {
+        if (request.getGiaTriGiam().doubleValue() > 50 && request.getHinhThucGiam().getId() == 2) {
+            throw new BadRequestException("Số % giảm tối đa không được lớn hơn 50%");
+        }
         if (repository.existsByTen(request.getTen())) {
             throw new BadRequestException("Tên voucher đã tồn tại trong hệ thống!");
         }
+
         Voucher createdVoucher = mapper.convertCreateRequestToEntity(request);
         createdVoucher.setMa(GenCode.generateVoucherCode());
         CommonEnum.TrangThaiVoucher status = voucherUtils.setTrangThaiVoucher(
@@ -100,6 +104,9 @@ public class VoucherServiceImpl implements VoucherService {
     @Override
     public VoucherResponse update(Long id, UpdatedVoucherRequest request) {
         Optional<Voucher> optional = repository.findById(id);
+        if (request.getGiaTriGiam().doubleValue() > 50 && request.getHinhThucGiam().getId() == 2) {
+            throw new BadRequestException("Số % giảm tối đa không được lớn hơn 50%");
+        }
         if (optional.isEmpty()) {
             throw new NotFoundException("Voucher không tồn tại");
         }

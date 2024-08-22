@@ -1,6 +1,7 @@
 package com.example.bee.controller.admin;
 
 
+import com.example.bee.exception.BadRequestException;
 import com.example.bee.model.request.create_request.CreatedVoucherRequest;
 import com.example.bee.model.request.update_request.UpdatedVoucherRequest;
 import com.example.bee.service.VoucherService;
@@ -21,6 +22,7 @@ public class VoucherController {
 
     @Autowired
     private VoucherService service;
+
 
     @GetMapping()
     public ResponseEntity<?> getAll(
@@ -95,6 +97,11 @@ public class VoucherController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody UpdatedVoucherRequest request) {
         return ResponseEntity.ok(service.update(id, request));
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handleBadRequestException(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
 }
