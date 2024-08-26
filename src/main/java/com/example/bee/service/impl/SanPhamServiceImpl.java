@@ -1,6 +1,7 @@
 package com.example.bee.service.impl;
 
 import com.example.bee.common.CommonEnum;
+import com.example.bee.entity.ChiTietSanPham;
 import com.example.bee.entity.SanPham;
 import com.example.bee.exception.BadRequestException;
 import com.example.bee.exception.NotFoundException;
@@ -67,6 +68,18 @@ public class SanPhamServiceImpl implements SanPhamService {
 
         Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
         Page<SanPham> pageSanPham = repository.findByAll(pageable, searchText, thuongHieuId, trangThai);
+        //THÊM MỚI
+        pageSanPham.getContent().forEach(sanPham -> {
+            // Tính tổng số lượng của tất cả các ChiTietSanPham thuộc về SanPham này
+            int tongSoLuong = sanPham.getListChiTietSanPham().stream()
+                    .mapToInt(ChiTietSanPham::getSoLuong)
+                    .sum();
+            // Kiểm tra nếu tổng số lượng <= 0, thì cập nhật trạng thái
+            if (tongSoLuong <= 0) {
+                sanPham.setTrangThai(CommonEnum.TrangThaiSanPham.INACTIVE);  // Giả sử có phương thức setTrangThai() để cập nhật trạng thái
+            }
+        });
+
         return pageSanPham.map(mapper::convertEntityToResponse);
     }
 

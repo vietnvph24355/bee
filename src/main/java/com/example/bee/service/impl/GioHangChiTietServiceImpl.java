@@ -57,13 +57,20 @@ public class GioHangChiTietServiceImpl implements GioHangChiTietService {
     }
 
     @Override
-    public void deleteAll(Long idGioHang) {
+    public void deleteSelected(Long idGioHang, List<Long> selectedProductIds) {
+        System.out.println("Xóa sản phẩm từ giỏ hàng với ID: " + idGioHang);
+        System.out.println("Danh sách sản phẩm cần xóa: " + selectedProductIds);
+
         GioHang gioHang = gioHangRepository.findById(idGioHang).orElse(null);
 
         if (gioHang != null) {
-            gioHang.getGioHangChiTietList().forEach(ghct -> repository.delete(ghct));
+            gioHang.getGioHangChiTietList().stream()
+                    .filter(ghct -> selectedProductIds.contains(ghct.getChiTietSanPham().getId()))
+                    .forEach(ghct -> repository.delete(ghct));
+            gioHangRepository.save(gioHang); // Lưu lại giỏ hàng sau khi xóa
         }
     }
+
 
     @Override
     public GioHangChiTietResponse update(Long idGioHangChiTiet, UpdatedGioHangChiTietRequest request) {

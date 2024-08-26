@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Repository
 public interface DiaChiRepository extends JpaRepository<DiaChi, Long> {
-
+    List<DiaChi> findDiaChiByTrangThaiDiaChi(CommonEnum.TrangThaiDiaChi taiKhoan);
     // Find all
     @Query("SELECT dc FROM DiaChi dc " +
             "WHERE (dc.hoVaTen LIKE %:searchText% OR dc.soDienThoai LIKE %:searchText% OR dc.email LIKE %:searchText%) " +

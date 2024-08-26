@@ -28,11 +28,13 @@ public class GioHangChiTietController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete-all")
-    public ResponseEntity<?> deleteALL(@RequestParam(name = "idGioHang")Long idGioHang) {
-        service.deleteAll(idGioHang);
+    @DeleteMapping("/delete-selected")
+    public ResponseEntity<?> deleteSelected(@RequestParam(name = "idGioHang") Long idGioHang,
+                                            @RequestBody List<Long> selectedProductIds) {
+        service.deleteSelected(idGioHang, selectedProductIds);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody UpdatedGioHangChiTietRequest request) {
         return ResponseEntity.ok(service.update(id, request));

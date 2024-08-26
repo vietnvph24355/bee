@@ -213,8 +213,8 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
 
     @Override
     public TaiKhoanResponse addKhachHang(CreatedTaiKhoanRequest request) {
-        TaiKhoan soDienThoai = taiKhoanRepository.findTaiKhoanByEmail(request.getSoDienThoai());
-        if (soDienThoai != null) {
+        TaiKhoan taiKhoan = taiKhoanRepository.findTaiKhoanByEmail(request.getEmail());
+        if (taiKhoan != null) {
             throw new BadRequestException("Email đã tồn tại trong hệ thống!");
         }
         if(request.getGioiTinh()==null){
@@ -249,21 +249,16 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         Optional<TaiKhoan> optionalTaiKhoan = taiKhoanRepository.findById(passwordRequest.getId());
         if (optionalTaiKhoan.isPresent()) {
             TaiKhoan accountId = optionalTaiKhoan.get();
-            System.out.println("aaaa"+accountId);
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountId.getSoDienThoai(), passwordRequest.getMatKhauCu()));
-
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountId.getEmail(), passwordRequest.getMatKhauCu()));
             if (authentication.isAuthenticated()) {
                 System.out.println("da vao");
-
                 if(!passwordRequest.getMatKhauMoi().equals(passwordRequest.getNhapLaiMatKhau())){
                     return"Mật khẩu nhập lại phải trùng nhau";
                 }
-
                 accountId.setMatKhau(passwordEncoder.encode(passwordRequest.getNhapLaiMatKhau()));
                 taiKhoanRepository.save(accountId);
                 return"Bạn đã đổi mật khẩu thành công";
             }
-
             else {
                 return"Mật khẩu cũ không trùng với mật khẩu của tài khoản";
             }

@@ -68,10 +68,9 @@ public class DiaChiServiceImpl implements DiaChiService {
         }
 
         TaiKhoan taiKhoan = optionalTaiKhoan.get();
-
         if (request.getTrangThaiDiaChi() == CommonEnum.TrangThaiDiaChi.DEFAULT) {
             // Đặt các địa chỉ khác của tài khoản thành ACTIVE
-            diaChiRepository.findByTaiKhoanAndIdNot(taiKhoan, null) // Lọc theo tài khoản và không theo id
+            diaChiRepository.findDiaChiByTrangThaiDiaChi(CommonEnum.TrangThaiDiaChi.DEFAULT) // Lọc theo tài khoản và không theo id
                     .forEach(address -> {
                         address.setTrangThaiDiaChi(CommonEnum.TrangThaiDiaChi.ACTIVE);
                         diaChiRepository.save(address);
@@ -79,7 +78,7 @@ public class DiaChiServiceImpl implements DiaChiService {
         }
 
         // Đặt địa chỉ hiện tại thành trạng thái được yêu cầu
-        createdDiaChi.setTrangThaiDiaChi(request.getTrangThaiDiaChi());
+        //createdDiaChi.setTrangThaiDiaChi(request.getTrangThaiDiaChi());
         createdDiaChi.setTaiKhoan(taiKhoan);
 
         // Lưu địa chỉ mới

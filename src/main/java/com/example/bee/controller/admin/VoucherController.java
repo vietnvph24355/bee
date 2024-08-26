@@ -1,6 +1,7 @@
 package com.example.bee.controller.admin;
 
 
+import com.example.bee.exception.BadRequestException;
 import com.example.bee.model.request.create_request.CreatedVoucherRequest;
 import com.example.bee.model.request.update_request.UpdatedVoucherRequest;
 import com.example.bee.service.VoucherService;
@@ -18,7 +19,10 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/admin/api/voucher")
 public class VoucherController {
-
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handleBadRequestException(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
     @Autowired
     private VoucherService service;
 

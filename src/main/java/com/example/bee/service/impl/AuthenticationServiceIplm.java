@@ -129,6 +129,9 @@ public class AuthenticationServiceIplm implements AuthenticationService {
         }
 
         TaiKhoan taiKhoan = userRepository.findGmail1(signinRequest.getEmail());
+        if(taiKhoan.getTrangThai() == CommonEnum.TrangThaiThuocTinh.INACTIVE){
+            throw new BadRequestException("Tài khoản mật khẩu không tồn tại");
+        }
 //        GioHang gioHang = gioHangRepository.getOne(taiKhoan.getId());
         var userToke = service.loadUserByUsername(signinRequest.getEmail());
         var jwt = jwtService.generateToken(userToke);

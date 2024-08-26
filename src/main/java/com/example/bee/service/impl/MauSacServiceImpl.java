@@ -81,16 +81,31 @@ public class MauSacServiceImpl implements MauSacService {
         if (optional.isEmpty()) {
             throw new NotFoundException("Màu sắc không tồn tại!");
         }
-        if (!request.getMa().equals(optional.get().getMa()) && repository.existsByMa(request.getMa())) {
+
+        // Chuẩn hóa mã và tên màu sắc để so sánh
+        String normalizedMa = request.getMa().trim();
+        String normalizedTen = request.getTen().trim().toLowerCase();
+
+        // Kiểm tra mã màu sắc (phân biệt chữ hoa chữ thường)
+        if (!normalizedMa.equals(optional.get().getMa().trim()) && repository.existsByMa(normalizedMa)) {
             throw new BadRequestException("Mã màu sắc đã tồn tại trong hệ thống!");
         }
-        if (!request.getTen().equals(optional.get().getTen())&&repository.existsByTen(request.getTen())) {
+
+        // Kiểm tra tên màu sắc (không phân biệt chữ hoa chữ thường)
+        if (!normalizedTen.equals(optional.get().getTen().trim().toLowerCase()) && repository.existsByTen(normalizedTen)) {
             throw new BadRequestException("Tên màu sắc đã tồn tại trong hệ thống!");
         }
+
         MauSac mauSac = optional.get();
+
+        // Cập nhật mã và tên màu sắc
+        mauSac.setMa(normalizedMa);
+        mauSac.setTen(request.getTen().trim()); // Lưu tên với trường hợp chữ ban đầu
+
         mapper.convertUpdatedRequestToEntity(request, mauSac);
         return mapper.convertEntityToResponse(repository.save(mauSac));
     }
+
 
     @Override
     public void delete(Long id) {

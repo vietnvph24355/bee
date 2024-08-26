@@ -1,5 +1,6 @@
 package com.example.bee.controller.admin;
 
+import com.example.bee.exception.BadRequestException;
 import com.example.bee.model.request.create_request.CreatedSanPhamRequest;
 import com.example.bee.model.request.update_request.UpdatedSanPhamRequest;
 import com.example.bee.service.SanPhamService;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin/api/san-pham")
 public class SanPhamController {
-
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handleBadRequestException(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
     @Autowired
     private SanPhamService service;
 

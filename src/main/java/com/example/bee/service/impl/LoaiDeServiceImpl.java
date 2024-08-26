@@ -78,14 +78,23 @@ public class LoaiDeServiceImpl implements LoaiDeService {
             throw new NotFoundException("Loại đế không tồn tại");
         }
 
-        if (!request.getTen().equals(optional.get().getTen()) && repository.existsByTen(request.getTen())) {
+        // Chuẩn hóa tên để so sánh và lưu trữ
+        String normalizedTen = request.getTen().trim().toLowerCase();
+
+        // So sánh tên mới với tên hiện tại, không phân biệt chữ hoa chữ thường
+        if (!normalizedTen.equals(optional.get().getTen().trim().toLowerCase()) && repository.existsByTen(normalizedTen)) {
             throw new BadRequestException("Tên loại đế đã tồn tại trong hệ thống!");
         }
 
         LoaiDe loaiDe = optional.get();
+
+        // Cập nhật tên loại đế sau khi đã chuẩn hóa
+        loaiDe.setTen(normalizedTen);
+
         mapper.convertUpdateRequestToEntity(request, loaiDe);
         return mapper.convertEntityToResponse(repository.save(loaiDe));
     }
+
 
     @Override
     public void delete(Long id) {

@@ -10,7 +10,7 @@ public interface GioHangChiTietService {
     GioHangChiTietResponse add(CreatedGioHangChiTietRequest request);
 
     void delete(Long idGioHangChiTiet);
-    void deleteAll(Long idGioHang);
+    void deleteSelected(Long idGioHang, List<Long> selectedProductIds);
 
     GioHangChiTietResponse update(Long idGioHangChiTiet, UpdatedGioHangChiTietRequest request);
 
