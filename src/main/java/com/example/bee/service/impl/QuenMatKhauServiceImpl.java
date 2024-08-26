@@ -1,9 +1,9 @@
 package com.example.bee.service.impl;
 
-import com.example.bee.repository.TaiKhoanRepository;
-import com.example.bee.service.QuenMatKhauService;
 import com.example.bee.entity.TaiKhoan;
 import com.example.bee.model.request.QuenMatKhauRequest.QuenMatKhauRequest;
+import com.example.bee.repository.TaiKhoanRepository;
+import com.example.bee.service.QuenMatKhauService;
 import com.example.bee.utils.EmailSend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -34,7 +34,6 @@ public class QuenMatKhauServiceImpl implements QuenMatKhauService {
         message.setText("Mật khẩu: " + content);
         taiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(content));
         taiKhoanRepository.save(taiKhoan);
-
         emailSender.send(message);
 
     }

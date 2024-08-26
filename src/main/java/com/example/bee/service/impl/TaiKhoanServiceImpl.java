@@ -266,14 +266,11 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
             return "Đổi mật khẩu thất bại";
         }
     }
-
     @Override
     public byte[] exportExcelTaiKhoan() throws IOException {
         List<TaiKhoan> taiKhoanList = taiKhoanRepository.findAllNhanVienExcel(); // Implement this method in your service
-
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("TaiKhoan");
-
         // Create header row
         Row headerRow = sheet.createRow(0);
         headerRow.createCell(0).setCellValue("ID");

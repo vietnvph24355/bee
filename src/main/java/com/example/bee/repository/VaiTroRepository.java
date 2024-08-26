@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface VaiTroRepository extends JpaRepository<VaiTro, Long> {
     @Query("SELECT obj FROM VaiTro obj WHERE (obj.ten LIKE %:searchText%) AND (:trangThai IS NULL OR obj.trangThai = :trangThai)")
     Page<VaiTro> findByAll(Pageable pageable, String searchText, CommonEnum.TrangThaiThuocTinh trangThai);
